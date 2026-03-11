@@ -27,7 +27,7 @@
 #include "skills/skill_loader.h"
 
 static const char *TAG = "mimi";
-
+/*初始化nvs*/
 static esp_err_t init_nvs(void)
 {
     esp_err_t ret = nvs_flash_init();
@@ -38,7 +38,7 @@ static esp_err_t init_nvs(void)
     }
     return ret;
 }
-
+/*初始化SPIFFS文件系统*/
 static esp_err_t init_spiffs(void)
 {
     esp_vfs_spiffs_conf_t conf = {
@@ -60,7 +60,7 @@ static esp_err_t init_spiffs(void)
 
     return ESP_OK;
 }
-
+/*出栈消息分发任务：从出栈队列读取消息并路由到对应渠道*/
 /* Outbound dispatch task: reads from outbound queue and routes to channels */
 static void outbound_dispatch_task(void *arg)
 {

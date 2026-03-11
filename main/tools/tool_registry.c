@@ -4,6 +4,7 @@
 #include "tools/tool_get_time.h"
 #include "tools/tool_files.h"
 #include "tools/tool_cron.h"
+#include "tools/tool_led_control.h"
 
 #include <string.h>
 #include "esp_log.h"
@@ -175,6 +176,19 @@ esp_err_t tool_registry_init(void)
         .execute = tool_cron_remove_execute,
     };
     register_tool(&cr);
+
+    /* Register led_control */
+    mimi_tool_t lc = {
+        .name = "led_control",
+        .description = "Control the onboard LED. Commands: 'on', 'off', 'blink', 'pulse'. Optional duration in ms for blink/pulse.",
+        .input_schema_json =
+            "{\"type\":\"object\","
+            "\"properties\":{\"command\":{\"type\":\"string\",\"description\":\"Command: on, off, blink, or pulse\"},"
+            "\"duration\":{\"type\":\"integer\",\"description\":\"Optional duration in milliseconds for blink/pulse\"}},"
+            "\"required\":[\"command\"]}",
+        .execute = tool_led_control_execute,
+    };
+    register_tool(&lc);
 
     build_tools_json();
 
