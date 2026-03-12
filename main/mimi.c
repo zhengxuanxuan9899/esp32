@@ -25,6 +25,7 @@
 #include "cron/cron_service.h"
 #include "heartbeat/heartbeat.h"
 #include "skills/skill_loader.h"
+#include "drivers/spilcd/spilcd.h"
 
 static const char *TAG = "mimi";
 /*初始化nvs*/
@@ -121,7 +122,6 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_event_loop_create_default());
     ESP_ERROR_CHECK(init_spiffs());
 
-    /* Initialize subsystems */
     ESP_ERROR_CHECK(message_bus_init());
     ESP_ERROR_CHECK(memory_store_init());
     ESP_ERROR_CHECK(skill_loader_init());
